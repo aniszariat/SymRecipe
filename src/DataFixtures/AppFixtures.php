@@ -22,9 +22,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
         // $manager->persist($product);
-        for ($i=0; $i <10 ; $i++) {
+        for ($i=0; $i <50 ; $i++) {
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->word())
             ->setPrice(mt_rand(0, 200)) ;

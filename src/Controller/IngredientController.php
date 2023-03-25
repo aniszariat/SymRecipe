@@ -38,13 +38,19 @@ class IngredientController extends AbstractController
         ]);
     }
 
+    /**
+     * function which creates a new ingredient and add to DB
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route("/ingredient/new", name:"ingredient.new", methods:['GET','POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
         $ingredient = new Ingredient();
-
         $form = $this->createForm(IngredientType::class, $ingredient);
 
         $form->handleRequest($request);
@@ -53,14 +59,30 @@ class IngredientController extends AbstractController
             $ingredient = $form->getData();
             $manager->persist($ingredient);
             $manager->flush();
-            // $this->redirectToRoute('ingredient.index');
 
             $this->addFlash(
                 'success',
                 'successfully added ingredient !'
             );
+            return $this->redirectToRoute('ingredient.index');
         }
         return $this->render('pages/ingredient/new.html.twig', [
+            'form' =>$form->createView()
+        ]);
+    }
+
+
+    #[Route("/ingredient/edit/{id}", name:"ingredient.edit", methods:['GET','POST'])]
+    public function edit(
+        Request $request,
+        IngredientRepository $repository,
+        int $id,
+        EntityManagerInterface $manager
+    ): Response {
+        $ingredient = $repository->findOneBy(['id' => $id]);
+        ;
+        $form = $this->createForm(IngredientType::class, $ingredient);
+        return $this->render('pages/ingredient/edit.html.twig', [
             'form' =>$form->createView()
         ]);
     }

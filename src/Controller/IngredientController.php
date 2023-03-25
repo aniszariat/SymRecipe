@@ -23,7 +23,7 @@ class IngredientController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/ingredient', name:'ingredient', methods:['GET'])]
+    #[Route('/ingredient', name:'ingredient.index', methods:['GET'])]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         // $ingredients = $repository->findAll();
@@ -38,7 +38,7 @@ class IngredientController extends AbstractController
         ]);
     }
 
-    #[Route("/ingredient/new", name:"new", methods:['GET','POST'])]
+    #[Route("/ingredient/new", name:"ingredient.new", methods:['GET','POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
@@ -53,6 +53,12 @@ class IngredientController extends AbstractController
             $ingredient = $form->getData();
             $manager->persist($ingredient);
             $manager->flush();
+            // $this->redirectToRoute('ingredient.index');
+
+            $this->addFlash(
+                'success',
+                'successfully added ingredient !'
+            );
         }
         return $this->render('pages/ingredient/new.html.twig', [
             'form' =>$form->createView()

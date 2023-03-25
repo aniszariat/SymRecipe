@@ -75,13 +75,26 @@ class IngredientController extends AbstractController
     #[Route("/ingredient/edit/{id}", name:"ingredient.edit", methods:['GET','POST'])]
     public function edit(
         Request $request,
-        IngredientRepository $repository,
-        int $id,
+        //! IngredientRepository $repository,
+        //! int $id,
+        Ingredient $ingredient,
         EntityManagerInterface $manager
     ): Response {
-        $ingredient = $repository->findOneBy(['id' => $id]);
-        ;
+        //! $ingredient = $repository->findOneBy(['id' => $id]);
         $form = $this->createForm(IngredientType::class, $ingredient);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()  && $form->isValid()) {
+            // dd($form->getData());
+            $ingredient = $form->getData();
+            $manager->persist($ingredient);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'successfully edited ingredient !'
+            );
+            return $this->redirectToRoute('ingredient.index');
+        }
         return $this->render('pages/ingredient/edit.html.twig', [
             'form' =>$form->createView()
         ]);

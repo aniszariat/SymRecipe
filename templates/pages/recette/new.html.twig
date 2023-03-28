@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Symrecipe - mes Recettes {% endblock %}
+{% block body %}
+<div class="container">
+
+
+    <h3>Création d'une recette</h3>
+    {{form_start(form)}}
+    <div class="from-group">
+        {{form_label(form.name)}}
+        {{form_widget(form.name)}}
+
+    </div>
+    <div class="from-group">
+        {{form_label(form.time)}}
+        {{form_widget(form.time)}}
+    </div>
+    <div class="from-group">
+        {{form_label(form.num_persons)}}
+        {{form_widget(form.num_persons)}}
+    </div>
+    <div class="from-group">
+        {{form_label(form.difficulty)}}
+        {{form_widget(form.difficulty)}}
+    </div>
+    <div class="from-group">
+        {{form_label(form.description)}}
+        {{form_widget(form.description)}}
+    </div>
+    <div class="from-group">
+        {{form_label(form.price)}}
+        {{form_widget(form.price)}}
+
+    </div>
+    <div class="from-group">
+        {{form_label(form.isFavorite)}}
+        {{form_widget(form.isFavorite)}}
+    </div>
+    <div class="from-group">
+        {{form_label(form.ingredients)}}
+        {{form_widget(form.ingredients)}}
+    </div>
+    <div class="from-group">
+        {{form_row(form.submit)}}
+    </div>
+
+    {{form_end(form)}}
+
+
+</div>
+{% endblock %}

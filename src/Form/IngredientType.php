@@ -40,7 +40,6 @@ class IngredientType extends AbstractType
                     new Assert\Positive(),
                     new Assert\LessThan(200)
                 ]
-
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary mt-2'],

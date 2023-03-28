@@ -71,4 +71,23 @@ class RecetteController extends AbstractController
             'form' =>$form->createView()
         ]);
     }
+
+    #[Route(path: '/recette/delete/{id}', name: 'recette.delete', methods: ['GET','POST'])]
+    public function delete(Recette $recette, EntityManagerInterface $manager): Response
+    {
+        if (! $recette) {
+            $this->addFlash(
+                'success',
+                'ingredient not found !'
+            );
+        } else {
+            $manager->remove($recette);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                'successfully deleted rece$recette !'
+            );
+        }
+        return $this->redirectToRoute('recette.index');
+    }
 }

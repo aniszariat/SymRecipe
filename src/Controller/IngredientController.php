@@ -113,7 +113,7 @@ class IngredientController extends AbstractController
             $manager->flush();
             $this->addFlash(
                 'success',
-                'successfully deletd ingredient !'
+                'successfully deleted ingredient !'
             );
         }
         return $this->redirectToRoute('ingredient.index');

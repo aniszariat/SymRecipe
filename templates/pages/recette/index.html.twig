@@ -24,8 +24,8 @@
                 <th scope="col">name</th>
                 <th scope="col">description</th>
                 <th scope="col">created At</th>
-                <!-- <th scope="col"></th>
-                <th scope="col"></th> -->
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
 
         </thead>
@@ -37,8 +37,8 @@
                 <td>{{recette.name}}</td>
                 <td>{{recette.description}}</td>
                 <td>{{recette.createdAt |date("m/d/Y")}}</td>
-                <!-- <td><a href="{{path('ingredient.edit', {id: recette.id}) }}" class="btn btn-warning">modifier</a></td>
-                <td><a href="{{path('ingredient.delete', {id: recette.id} )}}" class="btn btn-danger">supprimer</a> -->
+                <td><a href="{{path('recette.edit', {id: recette.id}) }}" class="btn btn-warning">modifier</a></td>
+                <td><a href="{{path('recette.delete', {id: recette.id} )}}" class="btn btn-danger">supprimer</a>
                 </td>
             </tr>
             {% endfor %}

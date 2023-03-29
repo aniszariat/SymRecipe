@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Ingredient;
 use App\Entity\Recette;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -24,35 +25,45 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         //! ingredient
-        $ingredients=[];
-        for ($i=0; $i < 25; $i++) {
-            $ingredient = new Ingredient();
-            $ingredient->setName($this->faker->word())
-            ->setPrice(mt_rand(0, 200)) ;
-            $ingredients[]= $ingredient;
-            $manager->persist($ingredient);
-        }
+        // $ingredients=[];
+        // for ($i=0; $i < 25; $i++) {
+        //     $ingredient = new Ingredient();
+        //     $ingredient->setName($this->faker->word())
+        //     ->setPrice(mt_rand(0, 200)) ;
+        //     $ingredients[]= $ingredient;
+        //     $manager->persist($ingredient);
+        // }
 
         //! recette
         // memory_limit=512M
-        for ($i=0; $i <12; $i++) {
-            $recette = new Recette();
-            $recette->setName($this->faker->word())
-            ->setPrice(mt_rand(0, 200))
-            ->setTime(mt_rand(0, 1) ? mt_rand(1, 1440) : null)
-            // ->setTime(mt_rand(1, 1440))
-            ->setNumPersons(mt_rand(0, 1) ? mt_rand(1, 50) : null)
-            // ->setNumPersons(mt_rand(1, 50))
-            ->setDifficulty(mt_rand(0, 1) ? mt_rand(1, 5) : null)
-            // ->setDifficulty(mt_rand(1, 5))
-            ->setDescription($this->faker->text(300))
-            ->setPrice((mt_rand(0, 1) ? mt_rand(1, 1000) : null))
-            // ->setPrice(mt_rand(1, 1000))
-            ->setIsFavorite(mt_rand(0, 1));
-            for ($i=0; $i < mt_rand(5, 15); $i++) {
-                $recette->addIngredient($ingredients[mt_rand(0, count($ingredients)-1)]);
-            }
-            $manager->persist($recette);
+        // for ($i=0; $i <12; $i++) {
+        //     $recette = new Recette();
+        //     $recette->setName($this->faker->word())
+        //     ->setPrice(mt_rand(0, 200))
+        //     ->setTime(mt_rand(0, 1) ? mt_rand(1, 1440) : null)
+        //     // ->setTime(mt_rand(1, 1440))
+        //     ->setNumPersons(mt_rand(0, 1) ? mt_rand(1, 50) : null)
+        //     // ->setNumPersons(mt_rand(1, 50))
+        //     ->setDifficulty(mt_rand(0, 1) ? mt_rand(1, 5) : null)
+        //     // ->setDifficulty(mt_rand(1, 5))
+        //     ->setDescription($this->faker->text(300))
+        //     ->setPrice((mt_rand(0, 1) ? mt_rand(1, 1000) : null))
+        //     // ->setPrice(mt_rand(1, 1000))
+        //     ->setIsFavorite(mt_rand(0, 1));
+        //     for ($i=0; $i < mt_rand(5, 15); $i++) {
+        //         $recette->addIngredient($ingredients[mt_rand(0, count($ingredients)-1)]);
+        //     }
+        //     $manager->persist($recette);
+        // }
+
+
+        for ($i=0; $i <10 ; $i++) {
+            $user = new User();
+            $user->setFullName($this->faker->name())
+                ->setPseudo(mt_rand(0, 1) ? $this->faker->word() : null)
+                ->setEmail($this->faker->email())
+                ->setPassword('password');
+            $manager->persist($user);
         }
         $manager->flush();
     }
